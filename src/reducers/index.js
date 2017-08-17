@@ -1,3 +1,5 @@
+import { TOGGLE_CELL, SET_BOARD_SIZE } from '../constants'
+
 function createInitialBoard(boardSize) {
     var gridsTable = [];
     var board = [];
@@ -22,5 +24,21 @@ const initialState = {
 };
 
 export default function gameOfLife(state = initialState, action) {
+    switch (action.type) {
+        case TOGGLE_CELL: {
+            var newBoard = state.board.slice();
+            newBoard[action.row][action.col] = !newBoard[action.row][action.col];
+            return {
+                ...state,
+                board: newBoard
+            };
+        }
+        case SET_BOARD_SIZE: {
+            return {
+                boardSize: action.boardSize,
+                board: createInitialBoard(action.boardSize)
+            }
+        }
+    }
     return state;
 }

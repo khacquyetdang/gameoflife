@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { GridList, GridTile } from 'material-ui/GridList';
 import './styles/Board.css';
-import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import { toggleCell } from '../actions';
 import Cell from './Cell';
 
 class Board extends React.Component {
@@ -15,12 +13,13 @@ class Board extends React.Component {
     }
 
     onCellClick(row, col) {
-        console.log("onCellClick %d %d", row, col);
+        this.props.toggleCell(row, col);
     }
 
     renderTableRows() {
         var numberRows = this.props.boardSize;
         var numberCols = this.props.boardSize;
+        var { board } = this.props;
         var rows = [];
         var tableRows = [];
 
@@ -38,6 +37,7 @@ class Board extends React.Component {
                             return (<td key={col+row}><Cell
                                 cellClick={this.onCellClick}
                                 row={row} col={col}
+                                active={board[row][col] === 0 ? false : true}
                                 ></Cell></td>);
                         })
                     }
@@ -73,4 +73,4 @@ function mapStateToProps(state, ownProps)
     return state;
 }
 
-export default connect(mapStateToProps, null) (Board);
+export default connect(mapStateToProps, {toggleCell}) (Board);

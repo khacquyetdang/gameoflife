@@ -4,10 +4,14 @@ import './styles/Cell.css';
 
 class Cell extends React.Component {
   render() {
+      var cssCell="Cell";
+    if (this.props.active)
+    {
+        cssCell = cssCell + " active";
+    }
     return (
-      <div className="Cell"
+      <div className={cssCell}
           onClick={() => this.props.cellClick(this.props.row, this.props.col)}>
-          <div> { '|' + this.props.row + ',' + this.props.col}</div>
       </div>
     );
   }
