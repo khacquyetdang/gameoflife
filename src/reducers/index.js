@@ -118,10 +118,10 @@ export default function gameOfLife(state = initialState, action) {
         }
         case NEXT_GEN: {
             var newBoard = computeNextGen(state.board);
-            //var running = newBoard === state.board;
+            var running = JSON.stringify(newBoard) !== JSON.stringify(state.board);
             return {
                 ...state,
-                //running,
+                running,
                 board: newBoard
             };
         }
