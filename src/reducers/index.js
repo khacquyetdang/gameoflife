@@ -17,6 +17,31 @@ function createInitialBoard(boardSize) {
     return board;
 }
 
+function createRandomBoard(boardSize) {
+    var gridsTable = [];
+    var board = [];
+
+
+    for (var row = 0; row < boardSize; row = row + 1)
+    {
+        var rows = [];
+        for (var col = 0; col < boardSize;  col = col + 1)
+        {
+            var randomNumber = Math.floor(Math.random() * 4);
+            if (randomNumber === 2)
+            {
+                rows.push(true);
+            }
+            else{
+                rows.push(false);
+
+            }
+        }
+        board.push(rows);
+    }
+    return board;
+}
+
 function computeNeighbors(board, row, col) {
     var neighorsAlive = 0;
     var rowStart = Math.max(row - 1, 0);
@@ -75,9 +100,10 @@ function computeNextGen(board) {
 
 const defaultBoardSize = 62;
 const initialState = {
-    running : false,
+    running : true,
+    generation: 0,
     boardSize: defaultBoardSize,
-    board: createInitialBoard(defaultBoardSize)
+    board: createRandomBoard(defaultBoardSize)
 };
 
 export default function gameOfLife(state = initialState, action) {
@@ -119,9 +145,11 @@ export default function gameOfLife(state = initialState, action) {
         case NEXT_GEN: {
             var newBoard = computeNextGen(state.board);
             var running = JSON.stringify(newBoard) !== JSON.stringify(state.board);
+            var nextGeneration = running ? state.generation + 1 : state.generation;
             return {
                 ...state,
                 running,
+                generation: nextGeneration,
                 board: newBoard
             };
         }

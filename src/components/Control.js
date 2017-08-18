@@ -51,6 +51,7 @@ class Control extends React.Component {
                     primary={true}
                     style={styles.customBtn}
                     onClick={this.handleRunningBtnClick}></RaisedButton>
+                <div className="generation">{ "Iteration:" + this.props.generation}</div>
             </div>
         );
     }
@@ -58,10 +59,11 @@ class Control extends React.Component {
 
 function mapStateToProps(state)
 {
-    const { boardSize, running } = state;
+    const { boardSize, generation, running } = state;
     return {
         boardSize,
-        running
+        running,
+        generation
     };
 }
 
