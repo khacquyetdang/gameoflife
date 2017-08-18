@@ -13,7 +13,7 @@ class Board extends React.Component {
     }
 
     onCellClick(row, col) {
-        this.props.toggleCell(row, col);
+        Promise.resolve().then(this.props.toggleCell(row, col));
     }
 
     renderTableRows() {
@@ -37,7 +37,7 @@ class Board extends React.Component {
                             return (<td key={col+row}><Cell
                                 cellClick={this.onCellClick}
                                 row={row} col={col}
-                                active={board[row][col] === 0 ? false : true}
+                                active={board[row][col]}
                                 ></Cell></td>);
                         })
                     }
@@ -68,8 +68,6 @@ class Board extends React.Component {
 
 function mapStateToProps(state, ownProps)
 {
-    console.log("board mapStateToProps");
-    console.log(state);
     return state;
 }
 
