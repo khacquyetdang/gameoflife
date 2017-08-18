@@ -35,7 +35,7 @@ class Control extends React.Component {
         }
         return (
             <div className="Control">
-                <Slider name="Grid size" min={5} max={100}
+                <Slider name="Grid size" min={60} max={130}
                     value={this.props.boardSize}
                     style={styles.customSlider}
                     step={1}

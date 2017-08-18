@@ -73,7 +73,7 @@ function computeNextGen(board) {
     return nextBoard;
 }
 
-const defaultBoardSize = 55;
+const defaultBoardSize = 62;
 const initialState = {
     running : false,
     boardSize: defaultBoardSize,
