@@ -1,4 +1,4 @@
-import { TOGGLE_CELL, SET_BOARD_SIZE, CLEAR_BOARD, NEXT_GEN } from '../constants'
+import { START, STOP, TOGGLE_CELL, SET_BOARD_SIZE, CLEAR_BOARD, NEXT_GEN } from '../constants'
 
 function createInitialBoard(boardSize) {
     var gridsTable = [];
@@ -73,14 +73,27 @@ function computeNextGen(board) {
     return nextBoard;
 }
 
-const boardSize = 50;
+const defaultBoardSize = 55;
 const initialState = {
-    boardSize: boardSize,
-    board: createInitialBoard(boardSize)
+    running : false,
+    boardSize: defaultBoardSize,
+    board: createInitialBoard(defaultBoardSize)
 };
 
 export default function gameOfLife(state = initialState, action) {
     switch (action.type) {
+        case START: {
+            return {
+                ...state,
+                running: true
+            };
+        }
+        case STOP: {
+            return {
+                ...state,
+                running: false
+            };
+        }
         case TOGGLE_CELL: {
             var newBoard = state.board.slice();
             newBoard[action.row][action.col] = !newBoard[action.row][action.col];
@@ -91,6 +104,7 @@ export default function gameOfLife(state = initialState, action) {
         }
         case SET_BOARD_SIZE: {
             return {
+                ...state,
                 boardSize: action.boardSize,
                 board: createInitialBoard(action.boardSize)
             }
@@ -98,13 +112,16 @@ export default function gameOfLife(state = initialState, action) {
         case CLEAR_BOARD: {
             return {
                 ...state,
+                running: false,
                 board: createInitialBoard(state.boardSize)
             }
         }
         case NEXT_GEN: {
             var newBoard = computeNextGen(state.board);
+            //var running = newBoard === state.board;
             return {
                 ...state,
+                //running,
                 board: newBoard
             };
         }

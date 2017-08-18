@@ -1,4 +1,16 @@
-import { TOGGLE_CELL, SET_BOARD_SIZE, NEXT_GEN, CLEAR_BOARD } from '../constants'
+import { START, STOP, TOGGLE_CELL, SET_BOARD_SIZE, NEXT_GEN, CLEAR_BOARD } from '../constants'
+
+export function stopGame() {
+    return {
+        type: STOP,
+    }
+};
+
+export function startGame() {
+    return {
+        type: START,
+    }
+};
 
 export function nextGen() {
     return {
