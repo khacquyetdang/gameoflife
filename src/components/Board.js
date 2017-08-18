@@ -90,6 +90,7 @@ class Board extends React.Component {
                                 cellClick={this.onCellClick}
                                 row={row} col={col}
                                 active={board[row][col]}
+                                boardSize={this.props.boardSize}
                                 ></Cell></td>);
                         })
                     }
